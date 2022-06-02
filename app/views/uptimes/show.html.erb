@@ -1,0 +1,10 @@
+<p style="color: green"><%= notice %></p>
+
+<%= render @uptime %>
+
+<div>
+  <%= link_to "Edit this uptime", edit_uptime_path(@uptime) %> |
+  <%= link_to "Back to uptimes", uptimes_path %>
+
+  <%= button_to "Destroy this uptime", @uptime, method: :delete %>
+</div>

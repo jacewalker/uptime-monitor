@@ -1,0 +1,36 @@
+<%= form_with(model: uptime) do |form| %>
+  <% if uptime.errors.any? %>
+    <div style="color: red">
+      <h2><%= pluralize(uptime.errors.count, "error") %> prohibited this uptime from being saved:</h2>
+
+      <ul>
+        <% uptime.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="container">
+    <div class="">
+      <% form.label :host, class:"form-label" %>
+      <%= form.text_field :host, class:"form-control", placeholder: "Host" %>
+    </div>
+
+    <div class="">
+      <% form.label :interval, style: "display: block" %>
+      <%= form.number_field :interval, placeholder: "2" %> seconds
+    </div>
+
+    <div class="">
+      <%= form.label :cancelled, style: "display: block" %>
+      <%= form.check_box :cancelled %>
+    </div>
+
+    <div class="">
+      <%= form.submit "Update", class:"btn btn-primary" %>
+    </div>
+  <% end %>
+</div>
+
+

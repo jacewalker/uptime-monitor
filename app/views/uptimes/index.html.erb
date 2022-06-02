@@ -1,0 +1,28 @@
+<p class="bg-success"><%= notice %></p>
+
+<div class="row">
+  <div class="col d-flex flex-row">
+    <h1>All Monitors</h1>
+  </div>
+  <div class="col d-flex flex-row-reverse align-items-center">
+  <%= link_to "New", new_uptime_path, class:"btn btn-primary" %>
+  </div>
+</div>
+
+
+<div id="uptimes">
+  
+  <table class="table table-dark table-striped">
+    <tr>
+      <th>Host</th>
+      <th>Interval</th>
+      <th>Active</th>
+      <th></th>
+    </tr>
+    <% @uptimes.each do |uptime| %>
+      <tr> <%= render uptime %> </tr>
+    <% end %>
+  </table>
+</div>
+
+

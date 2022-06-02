@@ -1,0 +1,9 @@
+
+      <td><%= uptime.host %> </td>
+      <td><%= uptime.interval %> seconds </td>
+      <td><%= uptime.cancelled %> </td>
+      <td class="d-flex flex-row-reverse"> 
+            <%= button_to "Destroy this uptime", uptime, method: :delete, class:"btn btn-danger me-2" %> 
+            <%= link_to "Pause", edit_uptime_path(uptime), class:"btn btn-warning me-2" %> 
+            <%= link_to "Edit", edit_uptime_path(uptime), class:"btn btn-secondary me-2" %> 
+      </td>
