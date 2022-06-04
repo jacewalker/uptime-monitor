@@ -57,6 +57,21 @@ class UptimesController < ApplicationController
     end
   end
 
+  def monitor
+    uptimes = Uptime.all
+    threads = []
+
+    uptimes.each do |check|
+      if check.cancelled
+        logger.info "#{check.host} is cancelled."
+      else
+        logger.info "#{check.host} is active."
+        threads << Thread.new { uptime(check) }
+      end
+    end
+  end
+
+
 
 
   private
@@ -68,6 +83,26 @@ class UptimesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def uptime_params
       params.require(:uptime).permit(:host, :interval, :cancelled)
+    end
+
+
+    def uptime(check)
+      while check.cancelled == false do
+        status = is_it_up(check.host)
+        sleep check.interval
+        logger.info "#{check.host} is up: #{status}"
+      end
+    end
+
+    def is_it_up(host)
+       ## TODO: Resolve ping requiring sudo privileges
+      begin
+        p = Net::Ping::ICMP.new(host.to_s, nil, 0.1)
+        status = p.ping?
+        p.ping? ? status = true : status = false
+      rescue Errno::EHOSTUNREACH, Errno::EHOSTDOWN
+        return status = false
+      end
     end
 
 end
